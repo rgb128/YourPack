@@ -14,3 +14,6 @@
 #drop-area > input {
     display: none;
 }
+#bg-div {
+    background-size: cover;
+}
