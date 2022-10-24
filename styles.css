@@ -3,9 +3,14 @@
     padding: 0px;
     box-sizing: border-box; */
 }
-canvas {
-    width: 200px;
-    height: 200px;
-    /* display: block; */
+#drop-area {
+    padding: 10px;
+    border: 1px solid black;
+    cursor: pointer;
+}
+#drop-area.active {
+    background-color: rgb(160, 160, 160);
+}
+#drop-area > input {
     display: none;
 }
