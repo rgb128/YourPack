@@ -3,40 +3,51 @@ const input = dropDiv.querySelector('input');
 
 
 
-input.oninput = () => {
-    console.log('oninput');
-    //todo check file type
-    onUploaded(input.files[0]);
+input.oninput = async () => {
+    if (!input.files.length) return;
+    const image = await getImageFromFile(input.files[0]);
+    onUploaded(image);
 }
 dropDiv.onclick = () => {
     input.click();
 }
-dropDiv.ondrop = (e) => {
+dropDiv.ondrop = async (e) => {
     e.preventDefault();
     e.stopPropagation();
     console.log('ondrop');
     dropDiv.classList.remove('active');
     const dt = e.dataTransfer;
     const files = dt.files;
+    if (!files.length) return;
     const file = files[0];
-    //todo check file type
-    onUploaded(file);
+    if (checkFileIsImage(file)) {
+        const image = await getImageFromFile(file);
+        onUploaded(image);
+    }
 }
-// dropDiv.addEventListener('drop', async (e) => {
-//     console.log('ondrop');
-//     e.preventDefault();
-//     e.stopPropagation();
-//     dropDiv.classList.remove('active');
-//     const dt = e.dataTransfer;
-//     const files = dt.files;
-//     const file = files[0];
-//     //todo check file type
-//     onUploaded(file);
-// });
 dropDiv.ondragover = (e) => {
     e.preventDefault();
     dropDiv.classList.add('active');
 }
 dropDiv.ondragleave = () => {
     dropDiv.classList.remove('active');
+}
+
+function checkFileIsImage(file) {
+    const imageType = /image.*/;
+    return !!file.type.match(imageType);
+}
+
+function getImageFromFile(file) {
+    return new Promise((resolve, reject) => {
+        const fr = new FileReader;
+        fr.onload = function() {
+            const img = new Image;
+            img.onload = function() {
+                resolve(img);
+            };
+            img.src = fr.result;
+        };
+        fr.readAsDataURL(file);
+    })
 }
