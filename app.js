@@ -29,6 +29,7 @@ document.getElementById('next').onclick = async e => {
     ctx2.fillRect(0, 0, imageWidth, imageHeight);
     const pixelData = ctx.getImageData(0, 0, imageHeight, imageHeight).data;
 
+    //todo all numbers from CONFIG, use percentage instead of px values
     for (let j = 0; j < randomInt(3, 150); j++) {
         const randomX = randomInt(0, imageHeight-1);
         const randomY = randomInt(0, imageHeight-1);
