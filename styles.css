@@ -43,11 +43,13 @@ canvas {
     left: 0px;
     width: 100vw;
     height: 100vh;
+    background-position: center center;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-around;
-    align-items: flex-end;
+    align-items: flex-start;
+    /* align-items: flex-end; */
 }
 #bg-div.updating {
     opacity: .5;
