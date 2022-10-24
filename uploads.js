@@ -5,6 +5,7 @@ const input = dropDiv.querySelector('input');
 
 input.oninput = async () => {
     if (!input.files.length) return;
+    document.getElementById('uploading-div').classList.add('hidden');
     const image = await getImageFromFile(input.files[0]);
     onUploaded(image);
 }
@@ -14,12 +15,12 @@ dropDiv.onclick = () => {
 dropDiv.ondrop = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log('ondrop');
     dropDiv.classList.remove('active');
     const dt = e.dataTransfer;
     const files = dt.files;
     if (!files.length) return;
     const file = files[0];
+    document.getElementById('uploading-div').classList.add('hidden');
     if (checkFileIsImage(file)) {
         const image = await getImageFromFile(file);
         onUploaded(image);

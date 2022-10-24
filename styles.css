@@ -2,11 +2,27 @@
     /* margin: 0px;
     padding: 0px;
     box-sizing: border-box; */
+    user-select: none;
+}
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+}
+canvas {
+    display: none;
 }
 #drop-area {
     padding: 10px;
     border: 1px solid black;
     cursor: pointer;
+    display: inline-flex;
+    min-width: 50vw;
+    min-height: 50vh;
+    align-items: center;
+    justify-content: center;
 }
 #drop-area.active {
     background-color: rgb(160, 160, 160);
@@ -16,4 +32,31 @@
 }
 #bg-div {
     background-size: cover;
+}
+.hidden {
+    display: none !important;
+}
+
+#bg-div {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: flex-end;
+}
+#bg-div.updating {
+    opacity: .5;
+}
+#bg-div > button {
+    width: 25%;
+    padding: 10px;
+    margin: 10px;
+}
+#bg-div > button#next {
+    width: 50%;
 }

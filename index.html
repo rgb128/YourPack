@@ -4,26 +4,31 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your pack</title>
+    <title>Your pack by RGB128 (ТО Серость)</title>
     <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
     <div id="drop-area">
         <input type="file" accept="image/*" />
-        Upload files here (click to upload or drag a file here)
+        
+        <div>Upload files here (click to upload or drag a file here)</div>
+        <div id="uploading-div" class="hidden">Uploading...</div>
     </div>
       
 
-    <canvas id="canvas" style="width: 200px; height: 200px; display: none;"></canvas>
-    <canvas id="canvas2" style="display: none;"></canvas>
-    <div id="bg-div" style="width: 200px; height: 200px;"></div>
-    
-    <button id="next">Next</button>
-    <button id="copy">Copy</button>
-    <button id="download">Download</button>
+    <canvas id="canvas"></canvas>
+    <canvas id="canvas2"></canvas>
 
+    <div id="bg-div" class="hidden">
+        <button id="copy">Copy</button>
+        <button id="next">Next</button>
+        <button id="download">Download</button>
+    </div>
+
+
+    <script src="config.js"></script>
     <script src="copy-and-download.js"></script>
-    <script src="inputs.js"></script>
+    <script src="uploads.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
