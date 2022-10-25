@@ -26,6 +26,7 @@ canvas {
     min-height: 50vh;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 }
 #drop-area > div.active {
     background-color: rgb(160, 160, 160);
@@ -33,6 +34,10 @@ canvas {
 #drop-area > div > input {
     display: none;
 }
+#drop-area > div > #uploading-div {
+    margin-top: 20px;
+}
+
 #bg-div {
     background-size: cover;
 }
@@ -48,11 +53,11 @@ canvas {
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-around;
-    align-items: flex-start;
-    /* align-items: flex-end; */
+    /* align-items: flex-start; */
+    align-items: flex-end;
 }
 #bg-div.updating {
-    opacity: .5;
+    opacity: .1;
 }
 #bg-div > button {
     width: 25%;

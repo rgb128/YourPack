@@ -33,10 +33,9 @@ async function nextImage() {
     bgDiv.classList.add('updating');
     ctx2.fillStyle = DARK_THEME ? 'black' : 'white';
     ctx2.fillRect(0, 0, imageWidth, imageHeight);
-    document.getElementById('uploading-div').classList.remove('hidden');
+    document.getElementById('uploading-div').classList.add('hidden');
     const pixelData = ctx.getImageData(0, 0, imageHeight, imageHeight).data;
 
-    //todo all numbers from CONFIG, use percentage instead of px values
     for (let j = 0; j < randomInt(CONFIG.rects.count.min, CONFIG.rects.count.max); j++) {
         const randomX = randomInt(0, imageWidth-1);
         const randomY = randomInt(0, imageHeight-1);

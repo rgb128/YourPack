@@ -4,7 +4,7 @@ const input = dropDiv.querySelector('input');
 
 input.oninput = async () => {
     if (!input.files.length) return;
-    document.getElementById('uploading-div').classList.add('hidden');
+    document.getElementById('uploading-div').classList.remove('hidden');
     const image = await getImageFromFile(input.files[0]);
     onUploaded(image);
 }
@@ -19,7 +19,7 @@ dropDiv.ondrop = async (e) => {
     const files = dt.files;
     if (!files.length) return;
     const file = files[0];
-    document.getElementById('uploading-div').classList.add('hidden');
+    document.getElementById('uploading-div').classList.remove('hidden');
     if (checkFileIsImage(file)) {
         const image = await getImageFromFile(file);
         onUploaded(image);
