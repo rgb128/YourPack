@@ -1,6 +1,5 @@
-const dropDiv = document.getElementById('drop-area');
+const dropDiv = document.querySelector('#drop-area > div');
 const input = dropDiv.querySelector('input');
-
 
 
 input.oninput = async () => {

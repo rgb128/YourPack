@@ -5,6 +5,7 @@ const ctx = canvas.getContext('2d');
 const canvas2 = document.getElementById('canvas2');
 const ctx2 = canvas2.getContext('2d');
 const bgDiv = document.getElementById('bg-div');
+const descriptionDiv = document.getElementById('description');
 const DARK_THEME = !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
 let imageWidth;
@@ -25,6 +26,7 @@ async function onUploaded(image) {
 
     document.getElementById('drop-area').classList.add('hidden');
     bgDiv.classList.remove('hidden');
+    descriptionDiv.classList.remove('hidden');
 }
 
 async function nextImage() {
@@ -69,5 +71,5 @@ function randomInt(from, to) {
 
 
 function loadFromCanvas2ToImage() {
-    document.getElementById('bg-div').style.backgroundImage = `url(${canvas2.toDataURL()})`;
+    bgDiv.style.backgroundImage = `url(${canvas2.toDataURL()})`;
 }
