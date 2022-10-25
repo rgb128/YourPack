@@ -16,7 +16,8 @@ function getCurrentDate() {
 }
 
 const copyBtn = document.getElementById('copy');
-copyBtn.onclick = async () => {
+copyBtn.onclick = async e => {
+    e.stopPropagation();
     navigator.permissions.query({ name: "write-on-clipboard" }).then((result) => {
         if (result.state == "granted" || result.state == "prompt") {
             // alert("Write access granted!");
@@ -47,6 +48,7 @@ copyBtn.onclick = async () => {
 
 const downloadBtn = document.getElementById('download');
 downloadBtn.onclick = e => {
+    e.stopPropagation();
     const myImageDataUrl = canvas2.toDataURL('image/png').replace('image/png', 'image/octet-stream');
     const link = document.createElement('a');
     link.style.display = 'none';

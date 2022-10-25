@@ -36,7 +36,7 @@ async function nextImage() {
 
     //todo all numbers from CONFIG, use percentage instead of px values
     for (let j = 0; j < randomInt(CONFIG.rects.count.min, CONFIG.rects.count.max); j++) {
-        const randomX = randomInt(0, imageHeight-1);
+        const randomX = randomInt(0, imageWidth-1);
         const randomY = randomInt(0, imageHeight-1);
         const pixel = getPixelValue(pixelData, randomX, randomY);
         const newWidthHalf = randomInt(CONFIG.rects.size.min * imageWidth / 2, CONFIG.rects.size.max * imageWidth / 2);
