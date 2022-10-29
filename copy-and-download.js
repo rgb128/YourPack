@@ -1,19 +1,23 @@
 'use strict';
-let currentImageNum = 1;
-function getFileName() {
-    return `rgb128_yourpack_${getCurrentDate()}_${currentImageNum++}.png`;
-}
 
-function getCurrentDate() {
-    const today = new Date();
-    const yyyy = today.getFullYear();
-    let mm = today.getMonth() + 1; // Months start at 0!
-    let dd = today.getDate();
-    if (dd < 10) dd = '0' + dd;
-    if (mm < 10) mm = '0' + mm;
+function* getFileName(currentImageNum = 1) {
+    function getCurrentDate() {
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        let mm = today.getMonth() + 1; // Months start at 0!
+        let dd = today.getDate();
+        if (dd < 10) dd = '0' + dd;
+        if (mm < 10) mm = '0' + mm;
 
-    return '' + yyyy + mm + dd;
+        return '' + yyyy + mm + dd;
+    }
+
+    while (true) {
+        yield `rgb128_yourpack_${getCurrentDate()}_${currentImageNum++}.png`;
+    }
 }
+const newFileNameGenerator = getFileName();
+
 
 const copyBtn = document.getElementById('copy');
 copyBtn.onclick = async e => {
@@ -53,7 +57,7 @@ downloadBtn.onclick = e => {
     const link = document.createElement('a');
     link.style.display = 'none';
     link.href = myImageDataUrl;
-    link.download = getFileName();
+    link.download = newFileNameGenerator.next().value;
     link.click();
     link.remove();
 }
