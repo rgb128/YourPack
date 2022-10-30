@@ -27,9 +27,27 @@ canvas {
     align-items: center;
     justify-content: center;
     flex-direction: column;
+
+    border: none;
+    background-image: url(xmpimg.png);
+    border-radius: 2rem;
+    animation: anim 25s infinite linear;
 }
-#drop-area > div.active {
-    background-color: rgb(160, 160, 160);
+@keyframes anim {
+    0% {background-position: 0 0;}
+    20% {background-position: 100% 50%;}
+    40% {background-position: 50% 100%;}
+    60% {background-position: 80% 10%;}
+    80% {background-position: 10% 80%;}
+    100% {background-position: 0 0;}
+}
+#drop-area > div > div {
+    background: white;
+    padding: 20px;
+    border-radius: 1rem;
+}
+#drop-area > div.active, #drop-area > div:hover {
+    animation-play-state: paused;
 }
 #drop-area > div > input {
     display: none;
@@ -63,6 +81,9 @@ canvas {
     width: 25%;
     padding: 10px;
     margin: 10px;
+    background: white;
+    border: none;
+    border-radius: 1rem;
 }
 #bg-div > button#next {
     width: 50%;
