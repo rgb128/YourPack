@@ -30,7 +30,7 @@ canvas {
 
     border: none;
     background-image: url(xmpimg.png);
-    border-radius: 2rem;
+    border-radius: 0rem;
     animation: anim 25s infinite linear;
 }
 @keyframes anim {
@@ -44,7 +44,7 @@ canvas {
 #drop-area > div > div {
     background: white;
     padding: 20px;
-    border-radius: 1rem;
+    border-radius: 0rem;
 }
 #drop-area > div.active, #drop-area > div:hover {
     animation-play-state: paused;
@@ -83,7 +83,7 @@ canvas {
     margin: 10px;
     background: white;
     border: none;
-    border-radius: 1rem;
+    border-radius: 0rem;
 }
 #bg-div > button#next {
     width: 50%;
