@@ -29,7 +29,7 @@ canvas {
     flex-direction: column;
 
     border: none;
-    background-image: url(xmpimg.png);
+    /* background-image: url(xmpimg.png); */
     border-radius: 0rem;
     animation: anim 25s infinite linear;
 }

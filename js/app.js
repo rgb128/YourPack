@@ -8,8 +8,8 @@ const bgDiv = document.getElementById('bg-div');
 const descriptionDiv = document.getElementById('description');
 const DARK_THEME = !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
-let imageWidth;
-let imageHeight;
+let imageWidth = 500;
+let imageHeight = 500;
 
 async function onUploaded(image) {
     // img base64 = image.src
