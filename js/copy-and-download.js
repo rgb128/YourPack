@@ -20,34 +20,47 @@ const newFileNameGenerator = getFileName();
 
 
 const copyBtn = document.getElementById('copy');
-copyBtn.onclick = async e => {
+copyBtn.onclick = e => {
     e.stopPropagation();
-    navigator.permissions.query({ name: "write-on-clipboard" }).then((result) => {
-        if (result.state == "granted" || result.state == "prompt") {
-            // alert("Write access granted!");
+
+    // Check for clipboard write permission.
+    navigator.permissions.query({ name: "clipboard-write" }).then(result => {
+        if (result.state === "granted" || result.state === "prompt") {
+            // Permission is granted or can be requested.
+            
+            copyBtn.innerText = 'copying';
+
+            // Convert canvas to blob.
+            canvas2.toBlob(blob => {
+                // The Clipboard API is promise-based, so we use .then() and .catch().
+                navigator.clipboard.write([
+                    new ClipboardItem({
+                        'image/png': blob
+                    })
+                ]).then(() => {
+                    // This block executes if the write operation is successful.
+                    copyBtn.innerText = 'copied';
+                }).catch(ex => {
+                    // This block executes if the write operation fails.
+                    console.error(ex);
+                    alert(ex);
+                    copyBtn.innerText = 'failed';
+                }).finally(() => {
+                    // This will always execute after the promise settles (either success or failure).
+                    setTimeout(() => {
+                        copyBtn.innerText = 'Copy';
+                    }, 2000);
+                });
+            });
         } else {
-            alert('Grand permission to copy image!');
+            // Inform the user that permission is needed.
+            alert('Please grant permission to copy the image!');
         }
+    }).catch(err => {
+        // Handle potential errors with the permissions query itself.
+        console.error('Permission query failed:', err);
+        alert('Could not verify clipboard permissions.');
     });
-      
-    copyBtn.innerText = 'copying';
-    canvas2.toBlob(async blob =>{
-        try {
-            await navigator.clipboard.write([
-                new ClipboardItem({
-                    'image/png': blob
-                })
-            ]);
-            copyBtn.innerText = 'copied';
-        } catch (ex) {
-            console.error(ex);
-            alert(ex);
-            copyBtn.innerText = 'failed';
-        }
-        setTimeout(() => {
-            copyBtn.innerText = 'Copy';
-        }, 2000);
-    })   
 };
 
 const downloadBtn = document.getElementById('download');
