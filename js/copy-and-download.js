@@ -20,39 +20,35 @@ const newFileNameGenerator = getFileName();
 
 
 const copyBtn = document.getElementById('copy');
-
 copyBtn.onclick = e => {
     e.stopPropagation();
-    
+
     copyBtn.innerText = 'copying';
-    
-    // Convert the canvas content to a Blob.
-    // The callback function receives the 'blob' object.
-    canvas2.toBlob(blob => {
-        // navigator.clipboard.write() returns a Promise.
-        // Instead of 'await', we handle it with .then() for success and .catch() for failure.
-        navigator.clipboard.write([
-            new ClipboardItem({
-                'image/png': blob
-            })
-        ])
-        .then(() => {
-            // This block runs if the copy operation is successful.
-            copyBtn.innerText = 'copied';
+
+    // 1. Create a Promise that resolves with the blob data from the canvas.
+    //    We pass the promise's 'resolve' function directly as the callback to toBlob.
+    const blobPromise = new Promise(resolve => canvas2.toBlob(resolve, 'image/png'));
+
+    // 2. Immediately and synchronously call clipboard.write().
+    //    We pass the PROMISE of the blob to the ClipboardItem. Safari is happy with this
+    //    because the intent to write happens directly within the user-triggered event.
+    navigator.clipboard.write([
+        new ClipboardItem({
+            'image/png': blobPromise
         })
-        .catch(err => {
-            // This block runs if the copy operation fails.
-            console.error('Failed to copy image: ', err);
-            alert('Failed to copy image.');
-            copyBtn.innerText = 'failed';
-        })
-        .finally(() => {
-            // This block runs after the operation completes (either success or failure).
-            // It resets the button text after a 2-second delay.
-            setTimeout(() => {
-                copyBtn.innerText = 'Copy';
-            }, 2000);
-        });
+    ]).then(() => {
+        // SUCCESS: This runs after the blob has been generated and successfully copied.
+        copyBtn.innerText = 'copied';
+    }).catch(ex => {
+        // FAILURE: This runs if the user denies permission or another error occurs.
+        console.error('Failed to copy image:', ex);
+        alert('Could not copy image: ' + ex.message);
+        copyBtn.innerText = 'failed';
+    }).finally(() => {
+        // ALWAYS RUNS: This resets the button text after a delay, regardless of outcome.
+        setTimeout(() => {
+            copyBtn.innerText = 'Copy';
+        }, 2000);
     });
 };
 
