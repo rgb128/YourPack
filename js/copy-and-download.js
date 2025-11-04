@@ -20,46 +20,39 @@ const newFileNameGenerator = getFileName();
 
 
 const copyBtn = document.getElementById('copy');
+
 copyBtn.onclick = e => {
     e.stopPropagation();
-
-    // Check for clipboard write permission.
-    navigator.permissions.query({ name: "clipboard-write" }).then(result => {
-        if (result.state === "granted" || result.state === "prompt") {
-            // Permission is granted or can be requested.
-            
-            copyBtn.innerText = 'copying';
-
-            // Convert canvas to blob.
-            canvas2.toBlob(blob => {
-                // The Clipboard API is promise-based, so we use .then() and .catch().
-                navigator.clipboard.write([
-                    new ClipboardItem({
-                        'image/png': blob
-                    })
-                ]).then(() => {
-                    // This block executes if the write operation is successful.
-                    copyBtn.innerText = 'copied';
-                }).catch(ex => {
-                    // This block executes if the write operation fails.
-                    console.error(ex);
-                    alert(ex);
-                    copyBtn.innerText = 'failed';
-                }).finally(() => {
-                    // This will always execute after the promise settles (either success or failure).
-                    setTimeout(() => {
-                        copyBtn.innerText = 'Copy';
-                    }, 2000);
-                });
-            });
-        } else {
-            // Inform the user that permission is needed.
-            alert('Please grant permission to copy the image!');
-        }
-    }).catch(err => {
-        // Handle potential errors with the permissions query itself.
-        console.error('Permission query failed:', err);
-        alert('Could not verify clipboard permissions.');
+    
+    copyBtn.innerText = 'copying';
+    
+    // Convert the canvas content to a Blob.
+    // The callback function receives the 'blob' object.
+    canvas2.toBlob(blob => {
+        // navigator.clipboard.write() returns a Promise.
+        // Instead of 'await', we handle it with .then() for success and .catch() for failure.
+        navigator.clipboard.write([
+            new ClipboardItem({
+                'image/png': blob
+            })
+        ])
+        .then(() => {
+            // This block runs if the copy operation is successful.
+            copyBtn.innerText = 'copied';
+        })
+        .catch(err => {
+            // This block runs if the copy operation fails.
+            console.error('Failed to copy image: ', err);
+            alert('Failed to copy image.');
+            copyBtn.innerText = 'failed';
+        })
+        .finally(() => {
+            // This block runs after the operation completes (either success or failure).
+            // It resets the button text after a 2-second delay.
+            setTimeout(() => {
+                copyBtn.innerText = 'Copy';
+            }, 2000);
+        });
     });
 };
 
